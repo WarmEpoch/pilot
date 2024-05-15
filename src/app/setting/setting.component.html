@@ -1,0 +1,12 @@
+<d-row>
+    <d-col [dSpan]="'auto'">
+        <div dMenu [collapsed]="true" [title]="">
+            <div dMenuItem [routerLink]="'/' + routes.path" *ngFor="let routes of routesChildren" [active]="'/' + routes.path === path">
+                <d-icon [icon]="routes.data?.['icon']" />
+            </div>
+        </div>
+    </d-col>
+    <d-col [dFlex]="1">
+        <router-outlet />
+    </d-col>
+</d-row>

@@ -1,0 +1,16 @@
+{
+  "chrome_url_overrides": {
+    "newtab": "./index.html"
+  },
+  "manifest_version": 3,
+  "name": "不想导航",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "./assets/tab.html",
+    "default_icon": "./assets/hello_extensions.png"
+  },
+  "host_permissions": [
+    "http://*/",
+    "https://*/"
+  ]
+}

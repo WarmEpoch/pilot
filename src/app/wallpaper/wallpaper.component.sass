@@ -1,0 +1,49 @@
+@import 'node_modules/ng-devui/styles-var/devui-var.scss'
+
+#selected, #selectedCheck, #live
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    padding: 0 1%
+    .selected:hover, .live:hover
+        background-size: 110%
+    .selected, .live
+        width: 49%
+        margin-top: 10px
+        margin-bottom: 20px
+        aspect-ratio: 16 / 9
+        border-radius: 10px
+        background-color: $devui-global-bg
+        background-position: center center
+        color: $devui-base-bg
+        position: relative
+        background-size: 100%
+        transition: all .3s
+        cursor: pointer
+        .absolute
+            position: absolute
+            inset: 0
+            display: grid
+            place-items: center
+            -webkit-backdrop-filter: brightness(0.8)
+            backdrop-filter: brightness(0.8)
+            
+:host ::ng-deep
+    #wallpaper
+        // .devui-carousel-dots
+        //     display: none
+        // d-pagination
+        //     display: flex
+        //     justify-content: center
+        position: relative
+        .devui-tab-pane>d-button
+            position: absolute
+            z-index: 10
+            top: 1.3rem
+        .devui-nav-container
+            justify-content: center
+            padding: .8rem 0
+            position: sticky
+            top: 0
+            z-index: 9
+            background: $devui-base-bg

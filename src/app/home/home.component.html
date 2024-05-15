@@ -1,0 +1,57 @@
+<video [src]="storeService.store.backgroundVideo" *ngIf="storeService.store.backgroundState" style="position: fixed;inset: 0;z-index: 0;object-fit: cover;width: 100%;height: 100%;" [poster]="storeService.store.backgroundVideo + '?x-oss-process=video/snapshot,t_0,f_jpg,w_0,h_0,m_fast'" autoplay loop muted></video>
+<d-layout [style]="'background-image: url(' + storeService.store.backgroundImage + '); z-index: 1;'">
+    <d-header>
+
+    </d-header>
+    <d-content>
+        <form id="search" dForm (layout)="'vertical'" (ngSubmit)="Search()">
+            <!-- (ngSubmit)="Search()" -->
+            <d-form-item>
+                <d-form-label>
+                    <d-select [placeholder]="'请选择搜索引擎'" [size]="'lg'" [options]="engineOptions" [filterKey]="'name'" [(ngModel)]="engineValue" name="engineValue"></d-select>
+                </d-form-label>
+                <d-form-control>
+                      <d-editable-select
+                        placeholder="请输入搜索内容"
+                        [source]="searchOptions"
+                        [maxHeight]="300"
+                        [allowClear]="true"
+                        [noResultItemTemplate]="searchNot"
+                        [(ngModel)]="searchValue"
+                        name="searchValue"
+                        (ngModelChange)="SearchChange()"
+                        (input)="SearchInput()"
+                        [enableSelectedValueList]="true"
+                      >
+                      <!-- (selectItem)="Search()" -->
+                      <ng-template #searchNot></ng-template>
+                      </d-editable-select>
+                </d-form-control>
+                <input hidden type="submit" value="提交">
+            </d-form-item>
+        </form>
+    </d-content>
+    <d-footer id="footer">
+        <d-tabs type="pills" [(activeTab)]="tabActiveId" [showContent]="false">
+            <d-tab [disabled]="true" id="footer_left">
+                <ng-template dTabTitle>
+                    <d-button icon="icon-op-member" bsStyle="common" bsSize="lg" routerLink="/login"></d-button>
+                </ng-template>
+            </d-tab>
+            <d-tab *ngFor="let item of tabsDisplay" [id]="item.id">
+              <ng-template dTabTitle>
+                <d-button [icon]="item.icon" [bsStyle]="item.id == tabActiveId ? 'primary' :'common'" bsSize="lg"></d-button>
+              </ng-template>
+            </d-tab>
+            <d-tab [disabled]="true" id="footer_right">
+                <ng-template dTabTitle>
+                    <d-button icon="icon-setting" bsStyle="common" bsSize="lg" routerLink="/wallpaper"></d-button>
+                </ng-template>
+            </d-tab>
+          </d-tabs>
+    </d-footer>
+
+<ng-template #settingContent>
+    <app-setting />
+</ng-template>
+</d-layout>

@@ -1,0 +1,54 @@
+<d-tabs type="pills" size="lg" [(activeTab)]="tabActiveId" type="slider" id="wallpaper">
+    <d-tab id="selected" title="精选壁纸">
+        <d-button icon="icon-collapse" *ngIf="selectedCarousel.activeIndex == 1 ? true : false" bsStyle="primary"
+            (btnClick)="selectedCarousel.goTo(0);" bsSize="lg" shape="circle"
+            style="left: 3%;" />
+        <d-button icon="icon-loop" [bsStyle]="selectedOptions.random ? 'primary' : 'common'"
+            (btnClick)="UpSelected(selectedCarousel.activeIndex)" bsSize="lg" shape="circle"
+            style="right: 3%;" />
+        <d-carousel arrowTrigger="never" [dotPosition]="'top'" [showDots]="false" #selectedCarousel>
+            <d-carousel-item>
+                <section id="selected">
+                    <div *ngFor="let item of selected" class="selected"
+                        [style.backgroundImage]="'url(' + selectedCover + item.cover + '.png)'"
+                        (click)="OpenSelected(item.tag); selectedCarousel.goTo(1);">
+                        <div class="absolute">
+                            <h2>{{ item.title }}</h2>
+                        </div>
+                    </div>
+                </section>
+            </d-carousel-item>
+            <d-carousel-item>
+                <section id="selectedCheck">
+                    <div *ngFor="let selected of selectedWallpaper" class="selected"
+                        [style.backgroundImage]="'url(' + selected.rawSrc + '?imageView2/2/w/384/format/webp)'"
+                        (click)="storeService.SetBackgroundImage(selected.rawSrc)">
+                    </div>
+                </section>
+                <section style="display: flex;justify-content: center;">
+                    <d-pagination *ngIf="!selectedOptions.random" [total]="selectedOptions.total"
+                        [(pageSize)]="selectedOptions.pageSize" [(pageIndex)]="selectedOptions.pageIndex"
+                        [canViewTotal]="true" [canChangePageSize]="true" [lite]="true"
+                        (pageIndexChange)="OpenSelected()">
+                    </d-pagination>
+                    <d-button *ngIf="selectedOptions.random" icon="icon-refresh"
+                        (btnClick)="OpenSelected()">刷新</d-button>
+                </section>
+            </d-carousel-item>
+        </d-carousel>
+    </d-tab>
+    <d-tab id="live" title="动态壁纸">
+        <section id="live">
+            <div *ngFor="let live of liveWallpaper" class="live"
+                [style.backgroundImage]="'url(' + live.src + '?x-oss-process=video/snapshot,t_0,f_jpg,w_384,h_216,m_fast'"
+                (click)="storeService.SetBackgroundVideo(live.src)">
+            </div>
+        </section>
+        <section style="display: flex;justify-content: center;">
+            <d-pagination [total]="liveOptions.total" [(pageSize)]="liveOptions.pageSize"
+                [(pageIndex)]="liveOptions.pageIndex" [canViewTotal]="true" [canChangePageSize]="true" [lite]="true"
+                (pageIndexChange)="OpenLive()">
+            </d-pagination>
+        </section>
+    </d-tab>
+</d-tabs>
